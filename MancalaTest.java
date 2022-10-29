@@ -10,14 +10,8 @@ public class MancalaTest {
 		DisplayBoard displayboard = new DisplayBoard();
 		MancalaFormatter formatter = new SimpleFormatter(displayboard);
 		displayboard.setFormatter(formatter);
-//		JPanel test = new JPanel();
-//		JButton test1 = new JButton("Test");
-//		test.add(test1);		
-//		frame.add(test);
 		
 		frame.add(displayboard);
-		
-		//frame.add((Component)formatter);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
