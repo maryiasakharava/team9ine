@@ -63,8 +63,7 @@ public class SimpleFormatter implements MancalaFormatter {
 		displayboard.setMinimumSize(d);
 		displayboard.setMaximumSize(d);
 		displayboard.setPreferredSize(d);
-		//displayboard.setBackground(RndColor());
-		displayboard.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
+		displayboard.setBackground(RndColor());
 	}
 	
 	public JPanel addHeadPanel() {			
@@ -237,9 +236,9 @@ public class SimpleFormatter implements MancalaFormatter {
 	
 	public Color RndColor() {
 		Random random = new Random();
-		double r = random.nextInt(255)/255.0;
-		double g = random.nextInt(200)/255.0;
-		double b = random.nextInt(80)/255.0;
+		double r = (random.nextInt(128)+127)/255.0;
+		double g = (random.nextInt(128)+127)/255.0;
+		double b = (random.nextInt(128)+127)/255.0;
 		
 		return new Color((float) r,(float) g,(float) b, 0.9f);
 	}
