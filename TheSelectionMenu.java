@@ -16,9 +16,9 @@ public class TheSelectionMenu extends JPanel {
         threePitButton = new JButton("3 Pits");
         fourPitButton = new JButton("4 Pits");
         exitButton = new JButton("Exit");
-        themeOneButton = new JButton("XXX1 Theme");
-        themeTwoButton = new JButton("XXX2 Theme");
-        themeThreeButton = new JButton("XXX3 Theme");
+        themeOneButton = new JButton("Purple");
+        themeTwoButton = new JButton("Random");
+        themeThreeButton = new JButton("Realistic");
     }
 
     public void setFormatter(MenuFormatter menuFormatter) {
@@ -28,15 +28,15 @@ public class TheSelectionMenu extends JPanel {
 
     public void DisplayComponents(MenuFormatter formatter) {
         formatter.setLayout();
-        this.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
-        this.add(formatter.addPlayButtonPanel(), BorderLayout.EAST);
+        this.add(formatter.addPlayButtonPanel(), BorderLayout.CENTER);
         this.add(formatter.addThemeButtonPanel(), BorderLayout.SOUTH);
-        this.add(formatter.addJLabel());
+        this.add(formatter.addJLabel(), BorderLayout.NORTH);
+        this.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
     }
 
-    public void startGame(int numberOfPits){
+    public void startGame(int numberOfMarbles){
         SwingUtilities.getWindowAncestor(this).dispose();
-        JFrame gameFrame = new JFrame("CS151 Mancala Project Team 9ine | %s Pit Game".formatted(numberOfPits));
+        JFrame gameFrame = new JFrame("CS151 Mancala Project Team 9ine | %s Pit Game".formatted(numberOfMarbles));
         DisplayBoard displayboard = new DisplayBoard();
         MancalaFormatter formatter = new SimpleFormatter(displayboard, 3);
         displayboard.setFormatter(formatter);

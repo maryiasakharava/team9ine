@@ -57,7 +57,7 @@ public class DisplayBoard extends JPanel {
 		formatter.setLayout();
 		this.add(formatter.addHeadPanel(), BorderLayout.NORTH);
 		this.add(formatter.addButtonPanel(), BorderLayout.SOUTH);
-		this.add(formatter.addMainPanel(), BorderLayout.CENTER);	
+		this.add(formatter.addMainPanel(), BorderLayout.CENTER);
 	}
 	
 	public JButton getMenuButton() {

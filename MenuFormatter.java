@@ -1,6 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuFormatter {
     private TheSelectionMenu selectionMenu;
@@ -46,6 +49,10 @@ public class MenuFormatter {
         menuButtonPanelCont.setLayout(new GridBagLayout());
         menuButtonPanel.setLayout(new GridLayout(0, 1, 20, 15));
 
+        menuButtonPanel.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
+        menuButtonPanelCont.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
+
+
         this.setButton(selectionMenu.getThreePitButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.startGame(3));
         this.setButton(selectionMenu.getFourPitButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.startGame(4));
         this.setButton(selectionMenu.getExitButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.exitButtonApplication());
@@ -57,15 +64,20 @@ public class MenuFormatter {
     }
 
     public JPanel addThemeButtonPanel() {
-        themeButtonPanel.setLayout(new BorderLayout());
+        themeButtonPanel.setLayout(new FlowLayout());
 
-        this.setButton(selectionMenu.getThemeOneButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.exitButtonApplication());
-        this.setButton(selectionMenu.getThemeTwoButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.exitButtonApplication());
-        this.setButton(selectionMenu.getThemeThreeButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.exitButtonApplication());
+        this.setButton(selectionMenu.getThemeOneButton(), Color.WHITE, new Color(102,0,153), 0, e -> selectionMenu.exitButtonApplication());
+        this.setButton(selectionMenu.getThemeTwoButton(), Color.WHITE, Color.WHITE, 0, e -> selectionMenu.exitButtonApplication());
+        this.setButton(selectionMenu.getThemeThreeButton(), Color.WHITE, Color.WHITE, 0, e -> selectionMenu.exitButtonApplication());
+
+        this.setThemeButton(selectionMenu.getThemeTwoButton(), "C:\\Users\\josep\\Desktop\\CS151Project\\MancalaProject\\src\\questionMakr.png");
+        this.setThemeButton(selectionMenu.getThemeThreeButton(), "C:\\Users\\josep\\Desktop\\CS151Project\\MancalaProject\\src\\mancalaRealImg.jpg");
+
 
         themeButtonPanel.add(selectionMenu.getThemeOneButton(), BorderLayout.WEST);
         themeButtonPanel.add(selectionMenu.getThemeTwoButton(), BorderLayout.WEST);
         themeButtonPanel.add(selectionMenu.getThemeThreeButton(), BorderLayout.WEST);
+        themeButtonPanel.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
 
         return themeButtonPanel;
     }
@@ -78,8 +90,21 @@ public class MenuFormatter {
         button.setBorder(BorderFactory.createBevelBorder(op));
         button.setFocusPainted(false);
 //        button.setBounds(x,y, buttonWidth, buttonHeight);
+        button.setPreferredSize(new Dimension(100,50));
         button.setOpaque(false);
         button.addActionListener(actionListener);
+    }
+
+    public void setThemeButton(JButton button, String imagePath){
+        try {
+            Image image = ImageIO.read(new File(imagePath)).getScaledInstance(100, 50, Image.SCALE_DEFAULT);
+            button.setIcon(new ImageIcon(image));
+            button.setBounds(0,0, 200, 100);
+            button.setHorizontalTextPosition(JButton.CENTER);
+            button.setVerticalTextPosition(JButton.CENTER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

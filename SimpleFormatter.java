@@ -1,8 +1,5 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -14,21 +11,23 @@ import javax.swing.SwingConstants;
 
 public class SimpleFormatter implements MancalaFormatter {
 	private JPanel buttonPanel, mainPanel, headPanel, numberStone1, numberStone2, leftP, rightP, 
-				   mainboard, board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
+				    board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
 	private JLabel headField, left, right, background;
 	private JLabel[] letter1, letter2;
 	private Icon pit;
 	private Icon theBoard;
-	
-	private DisplayBoard displayboard;
-	private int numberOfPits;
 
-	private Color customPurple = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+	public JPanel mainboard;
+	public DisplayBoard displayboard;
+
+	public int numberOfMarbles;
+
+	private Color lightGrey = new Color(0.0f, 0.0f, 0.0f, 0.5f);
 
 
-	public SimpleFormatter(DisplayBoard displayboard, int numberOfPits) {
+	public SimpleFormatter(DisplayBoard displayboard, int numberOfMarbles) {
 		this.displayboard = displayboard;
-		this.numberOfPits = numberOfPits;
+		this.numberOfMarbles = numberOfMarbles;
 		mainboard = new JPanel();
 		pitPanel1 = new JPanel();
 		pitPanel2 = new JPanel();
@@ -51,14 +50,13 @@ public class SimpleFormatter implements MancalaFormatter {
 		theBoard = new Board(540, 260);
 		background = new JLabel(theBoard);
 	}
-	
+
 	public void setLayout() {
 		displayboard.setLayout(new BorderLayout());
 		Dimension d = new Dimension(630,350);
 		displayboard.setMinimumSize(d);
 		displayboard.setMaximumSize(d);
 		displayboard.setPreferredSize(d);
-		//displayboard.setBackground(RndColor());
 		displayboard.setBackground(new Color(0.2f, 0.4f, 0.8f, 0.95f));
 	}
 	
@@ -105,9 +103,9 @@ public class SimpleFormatter implements MancalaFormatter {
 		numberStone2.setLayout(new GridLayout(1, 8));
 		
 		for (int i = 0; i < displayboard.getNumber1().length; i++) {
-			numberStone1.add(displayboard.getNumber1()[displayboard.getNumber1().length-1 - i]);	
+			numberStone1.add(displayboard.getNumber1()[displayboard.getNumber1().length-1 - i]);
 		}
-		
+
 		for (int i = 0; i < displayboard.getNumber2().length; i++) {
 			numberStone2.add(displayboard.getNumber2()[i]);
 		}
@@ -141,77 +139,52 @@ public class SimpleFormatter implements MancalaFormatter {
 			letter2[i].setBorder(BorderFactory.createEmptyBorder(0,20,0,25));		
 		}
 		
-		pitPanel1.setBackground(customPurple);
+		pitPanel1.setBackground(lightGrey);
 		pitPanel1.setOpaque(false);
-		pitPanel2.setBackground(customPurple);
+		pitPanel2.setBackground(lightGrey);
 		pitPanel2.setOpaque(false);
-		pitPanel3.setBackground(customPurple);
+		pitPanel3.setBackground(lightGrey);
 		pitPanel3.setOpaque(false);
-		pitPanel4.setBackground(customPurple);
-		pitPanel4.setOpaque(false);	
-		
-		pitPanel1.setBounds(0, 0, 400, 90);
-		pitPanel2.setBounds(0, 0, 400, 85);
-		pitPanel3.setBounds(0, 0, 400, 20);
-		pitPanel4.setBounds(0, 0, 400, 20);
-		
-		pitPanel1.setLocation(0,0);
-		pitPanel2.setLocation(0,135);
-		pitPanel3.setLocation(0,80);
-		pitPanel4.setLocation(0,115);		
-		
+		pitPanel4.setBackground(lightGrey);
+		pitPanel4.setOpaque(false);
+
+		setPanelLocation(pitPanel1, 0, 0, 400, 90, 0, 0);
+		setPanelLocation(pitPanel2, 0, 0, 400, 85, 0, 135);
+		setPanelLocation(pitPanel3, 0, 0, 400, 20, 0, 80);
+		setPanelLocation(pitPanel4, 0, 0, 400, 20, 0, 115);
+
 		board.add(pitPanel1);
+		board.add(pitPanel2);
 		board.add(pitPanel3);
 		board.add(pitPanel4);
-		board.add(pitPanel2);
-		
+
 		board.setBounds(0, 0, 405, 220);
 		board.setLocation(75,20);
-		
-		displayboard.getM1Button().setIcon(new Pit(50, 210));
-		displayboard.getM2Button().setIcon(new Pit(50, 210));
-		
-		this.setButton(displayboard.getM1Button(), Color.white, Color.black, false, false, 0);
-		this.setButton(displayboard.getM2Button(), Color.white, Color.black, false, false, 0);
-		
-		displayboard.getM1Button().setBounds(0, 0, 60, 215);
-		displayboard.getM2Button().setBounds(0, 0, 60, 215);
-		displayboard.getM1Button().setLocation(20,24);
-		displayboard.getM2Button().setLocation(470,24);
-		
-		numberStone1.setBounds(0, 0, 520, 20);
-		numberStone2.setBounds(0, 0, 520, 20);
-		
-		numberStone1.setLocation(15,5);
-		numberStone2.setLocation(15,240);
-		
-		background.setBounds(0, 0, 550, 270);		
-		background.setLocation(0,0);	
 
-		background.setBackground(customPurple);
+		setPanelLocation(numberStone1, 0, 0, 520, 20, 15, 5);
+		setPanelLocation(numberStone2, 0, 0, 520, 20, 15, 240);
+
+		background.setBounds(0, 0, 550, 270);		
+		background.setLocation(0,0);
+		background.setBackground(lightGrey);
 		background.setOpaque(false);
-		numberStone1.setBackground(customPurple);
-		numberStone1.setOpaque(false);
-		numberStone2.setBackground(customPurple);
-		numberStone2.setOpaque(false);
-		board.setBackground(customPurple);
-		board.setOpaque(false);
-		
-		mainboard.add(displayboard.getM1Button());
-		mainboard.add(displayboard.getM2Button());
-		mainboard.add(numberStone1);
-		mainboard.add(numberStone2);
-		mainboard.add(board);
-		mainboard.add(background);
-		
-		mainboard.setBackground(customPurple);
-		mainboard.setOpaque(false);
-		leftP.setBackground(customPurple);
-		leftP.setOpaque(false);
-		rightP.setBackground(customPurple);
-		rightP.setOpaque(false);
-		
-		mainPanel.add(mainboard,BorderLayout.CENTER);		
+
+		setPanel(numberStone1, lightGrey, false);
+		setPanel(numberStone2, lightGrey, false);
+		setPanel(board, lightGrey, false);
+
+		addMainboardComp(new BigPit(this.displayboard, this.numberOfMarbles).addLeftBigPit());
+		addMainboardComp(new BigPit(this.displayboard, this.numberOfMarbles).addRightBigPit());
+		addMainboardComp(numberStone1);
+		addMainboardComp(numberStone2);
+		addMainboardComp(board);
+		addMainboardComp(background);
+
+		setPanel(mainboard, lightGrey, false);
+		setPanel(leftP, lightGrey, false);
+		setPanel(rightP, lightGrey, false);
+
+		mainPanel.add(mainboard,BorderLayout.CENTER);
 		mainPanel.add(leftP,BorderLayout.WEST);
 		mainPanel.add(rightP,BorderLayout.EAST);
 		
@@ -219,7 +192,21 @@ public class SimpleFormatter implements MancalaFormatter {
 		
 		return mainPanel;
 	}
-	
+
+	public void addMainboardComp(Component component){
+		mainboard.add(component);
+	}
+
+	public void setPanel(JPanel panel, Color backgroundColor, boolean isOpaque){
+		panel.setBackground(backgroundColor);
+		panel.setOpaque(isOpaque);
+	}
+
+	public void setPanelLocation(JPanel panel, int boundsX, int boundsY, int boundsWidth, int boundsHeight, int locationX, int locationY){
+		panel.setBounds(boundsX, boundsY, boundsWidth, boundsHeight);
+		panel.setLocation(locationX, locationY);
+	}
+
 	public void setButton(JButton b, Color backCo, Color ForeCo, boolean b1, boolean b2, int op) {
 		b.setBackground(backCo);
 		b.setForeground(ForeCo);
