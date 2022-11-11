@@ -53,17 +53,24 @@ public class SimpleFormatter implements MancalaFormatter {
 		letter1 = new JLabel[6];
 		letter2 = new JLabel[6];
 		pit = new Pit(50, 75);
-		theBoard = new Board(540, 260);
+		theBoard = new Board(540, 260, "");
 		background = new JLabel(theBoard);
 	}
 	
-	public void setLayout() {
-		displayboard.setLayout(new BorderLayout());
-		Dimension d = new Dimension(630,350);
+	public void setLayout() {	
+		
+		displayboard.getLabelBackground().setLayout(new BorderLayout());
+		Dimension d = new Dimension(630,345);
+		displayboard.getLabelBackground().setMinimumSize(d);
+		displayboard.getLabelBackground().setMaximumSize(d);
+		displayboard.getLabelBackground().setPreferredSize(d);
+		displayboard.setBackground(RndColor());
+		
+		d = new Dimension(630,350);
 		displayboard.setMinimumSize(d);
 		displayboard.setMaximumSize(d);
 		displayboard.setPreferredSize(d);
-		displayboard.setBackground(RndColor());
+
 	}
 	
 	public JPanel addHeadPanel() {			
@@ -242,7 +249,6 @@ public class SimpleFormatter implements MancalaFormatter {
 		
 		return new Color((float) r,(float) g,(float) b, 0.9f);
 	}
-
 	
 	public static String transformStringToHtml(String strToTransform) {
 	    String ans = "<html>";
@@ -254,5 +260,4 @@ public class SimpleFormatter implements MancalaFormatter {
 	    ans += "</html>";
 	    return ans;
 	}
-	
 }
