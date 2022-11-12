@@ -17,7 +17,6 @@ public class DisplayBoard extends JPanel{
 	private JButton m1, m2;
 	private JLabel background;
 	private int undoTime;
-	private MancalaFormatter formatter;
 	
 	public DisplayBoard() {
 		
@@ -50,11 +49,6 @@ public class DisplayBoard extends JPanel{
 	}
 	
 	public void setFormatter(MancalaFormatter formatter) {
-		this.formatter = formatter;
-		Display(formatter);
-	}
-	
-	public void Display(MancalaFormatter formatter) {
 		formatter.setLayout();		
 		background.add(formatter.addMainPanel(), BorderLayout.CENTER);
 		background.add(formatter.addHeadPanel(), BorderLayout.NORTH);
