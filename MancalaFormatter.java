@@ -1,15 +1,23 @@
-import java.awt.Component;
-
 import javax.swing.JPanel;
 
 public interface MancalaFormatter {
-	//public void paint();
 
-	public JPanel addHeadPanel();
+	public JPanel addHeadPanel(DisplayBoard displayboard);
 
-	public JPanel addButtonPanel();
+	public JPanel addButtonPanel(DisplayBoard displayboard);
 
-	public JPanel addMainPanel();
+	public JPanel addMainPanel(DisplayBoard displayboard);
 
-	public void setLayout();
+	public void setLayout(DisplayBoard displayboard);
+	
+	public default String transformStringToHtml(String strToTransform) {
+	    String ans = "<html>";
+	    String br = "<br>";
+	    String[] lettersArr = strToTransform.split("");
+	    for (String letter : lettersArr) {
+	        ans += letter + br;
+	    }
+	    ans += "</html>";
+	    return ans;
+	}
 }
