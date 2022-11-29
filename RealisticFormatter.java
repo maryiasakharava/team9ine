@@ -1,12 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Random;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -14,22 +16,22 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- * SimpleFormatter class the implements MancalaFormatter
+ * Realistic formatter for Board realistic option
  */
-public class SimpleFormatter implements MancalaFormatter {
+public class RealisticFormatter implements MancalaFormatter{
 	private JPanel buttonPanel, mainPanel, headPanel, numberStone1, numberStone2, leftP, rightP, 
-				   mainboard, board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
+	   mainboard, board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
 	private JLabel headField, left, right, background;
 	private JLabel[] letter1, letter2;
 	private Icon pit;
 	private Icon theBoard;
-	
+	private String marbleName = "stone2.png";
 	//private DisplayBoard displayboard;
 
 	/**
-	 * SimpleFormatter constructor
+	 * Realistic formatter constructor
 	 */
-	public SimpleFormatter() {
+	public RealisticFormatter() {
 		//this.displayboard = displayboard;
 		mainboard = new JPanel();
 		pitPanel1 = new JPanel();
@@ -49,50 +51,54 @@ public class SimpleFormatter implements MancalaFormatter {
 		right = new JLabel();
 		letter1 = new JLabel[6];
 		letter2 = new JLabel[6];
-
-		theBoard = new Board(540, 260, "");
-		background = new JLabel(theBoard);
+		theBoard = new Board(540, 260, "board_Bg.jpg");
+		background = new JLabel(theBoard);	
 	}
+
 	/**
-	 * Set layout for displayboard
+	 * set layout for displayBoard
 	 */
-	public void setLayout(DisplayBoard displayboard) {	
+	public void setLayout(DisplayBoard displayboard) {
 		
+		ImageIcon img1 = new ImageIcon(this.getClass().getResource("bg.jpg"));
+		img1.setImage(img1.getImage().getScaledInstance(630, 345, Image.SCALE_DEFAULT));
+		displayboard.setLayout(new FlowLayout());
+		
+		displayboard.getLabelBackground().setIcon(img1);
+		displayboard.getLabelBackground().setOpaque(true);
 		displayboard.getLabelBackground().setLayout(new BorderLayout());
-		displayboard.getLabelBackground().setOpaque(false);
-		Dimension d = new Dimension(630,345);
-		displayboard.getLabelBackground().setMinimumSize(d);
-		displayboard.getLabelBackground().setMaximumSize(d);
-		displayboard.getLabelBackground().setPreferredSize(d);
-		displayboard.setBackground(RndColor());
+
+		Dimension d = new Dimension(630,350);
 		
-		d = new Dimension(630,350);
 		displayboard.setMinimumSize(d);
 		displayboard.setMaximumSize(d);
 		displayboard.setPreferredSize(d);
-
 	}
+
 	/**
-	 * Add Header panel for displayboard
+	 * add Header Panel for displayBoard
 	 */
 	public JPanel addHeadPanel(DisplayBoard displayboard) {			
 		headField.setOpaque(false);
 		headField.setFont(new Font("Serif", Font.PLAIN, 25));
 		headField.setFont(new Font(headField.getName(), Font.BOLD, 25));
+		headField.setForeground(Color.white);
 		headPanel.setOpaque(false);
 		headPanel.add(headField);
 		return headPanel;
 	}
+
 	/**
-	 * Add button panel for displayboard
+	 * add Button Panel for displayBoard
 	 */
 	public JPanel addButtonPanel(DisplayBoard displayboard) {	
 		buttonPanel.setLayout(new BorderLayout());
 		
-		this.setButton(displayboard.getMenuButton(), Color.white, Color.black, false, true, 0);
-		this.setButton(displayboard.getUndoButton(), Color.white, Color.black, false, true, 0);
+		this.setButton(displayboard.getMenuButton(), Color.white, Color.white, false, false, 0);
+		this.setButton(displayboard.getUndoButton(), Color.white, Color.white, false, false, 0);
 		displayboard.playerTurn().setHorizontalAlignment(JLabel.CENTER);
 		displayboard.playerTurn().setFont(new Font("MONOSPACED", Font.BOLD, 18));
+		displayboard.playerTurn().setForeground(Color.white);
 		
 		buttonPanel.add(displayboard.getMenuButton(),BorderLayout.WEST);
 		buttonPanel.add(displayboard.getUndoButton(),BorderLayout.EAST);
@@ -102,21 +108,22 @@ public class SimpleFormatter implements MancalaFormatter {
 
 		return buttonPanel;
 	}
+
 	/**
-	 * Add main panel for displayboard
+	 * add Main Panel to displayboard
 	 */
 	public JPanel addMainPanel(DisplayBoard displayboard) {			
 		mainPanel.setLayout(new BorderLayout());
 		
 		left.setText(transformStringToHtml("MANCALA B"));
 		left.setFont(new Font("MONOSPACED", Font.BOLD, 15));
-		left.setForeground(Color.black);
+		left.setForeground(Color.white);
 		leftP.setBorder(BorderFactory.createEmptyBorder(35,10,0,0));
 		leftP.add(left);
 		
 		right.setText(transformStringToHtml("MANCALA A"));
 		right.setFont(new Font("MONOSPACED", Font.BOLD, 15));
-		right.setForeground(Color.black);
+		right.setForeground(Color.white);
 		rightP.setBorder(BorderFactory.createEmptyBorder(35,5,0,5));
 		rightP.add(right);
 		
@@ -140,9 +147,12 @@ public class SimpleFormatter implements MancalaFormatter {
 		
 		for (int i = 0; i < displayboard.getPits1().length; i++) {
 //			int marble = Integer.parseInt(displayboard.getNumber1()[i+1].getText());
-			displayboard.getPits1()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i)));
+//			displayboard.getPits1()[i].setIcon(new Pit(50, 75, marble));
 //			marble = Integer.parseInt(displayboard.getNumber2()[i+1].getText());
-			displayboard.getPits2()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i+6)));
+//			displayboard.getPits2()[i].setIcon(new Pit(50, 75, marble));
+			
+			displayboard.getPits1()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i), marbleName));
+			displayboard.getPits2()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i+6), marbleName));
 			
 			this.setButton(displayboard.getPits1()[i], Color.white, Color.black, false, false, 0);
 			this.setButton(displayboard.getPits2()[i], Color.white, Color.black, false, false, 0);
@@ -181,9 +191,14 @@ public class SimpleFormatter implements MancalaFormatter {
 		
 		board.setBounds(0, 0, 405, 220);
 		board.setLocation(75,20);
-
-		displayboard.getM1Button().setIcon(new Pit(50, 210, displayboard.getMarble(12)));
-		displayboard.getM2Button().setIcon(new Pit(50, 210, displayboard.getMarble(13)));
+		
+//		int marble = Integer.parseInt(displayboard.getNumber1()[7].getText());
+//		displayboard.getM1Button().setIcon(new Pit(50, 210, marble));
+//		marble = Integer.parseInt(displayboard.getNumber2()[7].getText());
+//		displayboard.getM2Button().setIcon(new Pit(50, 210, marble));
+		
+		displayboard.getM1Button().setIcon(new Pit(50, 210, displayboard.getMarble(12), marbleName));
+		displayboard.getM2Button().setIcon(new Pit(50, 210, displayboard.getMarble(13), marbleName));
 		
 		this.setButton(displayboard.getM1Button(), Color.white, Color.black, false, false, 0);
 		this.setButton(displayboard.getM2Button(), Color.white, Color.black, false, false, 0);
@@ -245,7 +260,7 @@ public class SimpleFormatter implements MancalaFormatter {
 	 * @param ForeCo the fore color
 	 * @param b1     the setOpaque true/false
 	 * @param b2     the setBorderPainted true/false
-	 * @param op     the op
+	 * @param op     the opaque
 	 */
 	public void setButton(JButton b, Color backCo, Color ForeCo, boolean b1, boolean b2, int op) {
 		b.setBackground(backCo);
@@ -257,16 +272,14 @@ public class SimpleFormatter implements MancalaFormatter {
 		b.setFocusPainted(false);
 	}
 
-	/**
-	 * Generates a random color (RGB)
-	 *
-	 * @return the Random Color
-	 */
-	public Color RndColor() {
-		Random random = new Random();
-		int r = (random.nextInt(128)+127);
-		int g = (random.nextInt(128)+127);
-		int b = (random.nextInt(128)+127);
-		return new Color(r,g,b);
-	}
+//	public static String transformStringToHtml(String strToTransform) {
+//	    String ans = "<html>";
+//	    String br = "<br>";
+//	    String[] lettersArr = strToTransform.split("");
+//	    for (String letter : lettersArr) {
+//	        ans += letter + br;
+//	    }
+//	    ans += "</html>";
+//	    return ans;
+//	}
 }

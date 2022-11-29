@@ -1,20 +1,25 @@
-import java.awt.Component;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+/**
+ * TEst Mancala Project Class
+ */
 public class MancalaTest {
+	/**
+	 * Test the application
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Mancala App");
-		DisplayBoard displayboard = new DisplayBoard();
-		MancalaFormatter formatter = new SimpleFormatter(displayboard);
-		displayboard.setFormatter(formatter);
-		
-		frame.add(displayboard);
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
+		JFrame menuFrame = new JFrame("CS151 Mancala Project Team 9ine");
+		TheSelectionMenu theSelectionMenu = new TheSelectionMenu();
+		MenuFormatter menuFormatter = new MenuFormatter(theSelectionMenu);
+		theSelectionMenu.setFormatter(menuFormatter);
+
+		menuFrame.setResizable(false);
+		menuFrame.add(theSelectionMenu);
+		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		menuFrame.pack();
+		menuFrame.setLocationRelativeTo(null);
+		menuFrame.setVisible(true);
 	}
 }
