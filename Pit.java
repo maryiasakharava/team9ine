@@ -1,3 +1,9 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -10,8 +16,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
@@ -22,9 +26,6 @@ public class Pit implements Icon, Cloneable{
 	private int width;
 	private int height;
 	private int marbles;
-	private MancalaModel model;
-	private int ID;
-	Random random = new Random();
 	private double[] xm;
 	private double[] ym;
 	private String imageName = "";
@@ -74,54 +75,6 @@ public class Pit implements Icon, Cloneable{
 		}
 	}
 
-
-	/**
-	 * Get id int.
-	 *
-	 * @return the int
-	 */
-	public int getID(){
-		return this.ID;
-	}
-
-	/**
-	 * Add marbles.
-	 *
-	 * @param marbles the marbles
-	 */
-	public void addMarbles(int marbles){
-		this.marbles +=marbles;
-	}
-
-	/**
-	 * Get marbles int.
-	 *
-	 * @return the int
-	 */
-	public int getMarbles(){
-		return marbles;
-	}
-
-	/**
-	 * Clear pit.
-	 */
-	public void clearPit(){
-		marbles =0;
-	}
-
-	/**
-	 * Is empty boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isEmpty(){
-		if (marbles ==0){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
 	public int getIconWidth() {return width;}
 
 	public int getIconHeight() {return height;}
@@ -179,24 +132,5 @@ public class Pit implements Icon, Cloneable{
 		g2.draw(cur2);
 		g2.draw(cur3);
 		g2.setStroke(new java.awt.BasicStroke(1));
-	}
-	
-	public Object clone() throws CloneNotSupportedException{
-		return this.clone();
-	}
-
-	/**
-	 * Check for overlaps
-	 *
-	 * @param i the index
-	 * @return true or fasle
-	 */
-	public boolean checkOverlap(int i) {
-		for (int j = 0; j < i; j++) {
-			if ((((xm[j]-(width/10)) < xm[i]) && ((xm[j]+(width/5)+(width/10)) > xm[i])) && (((ym[j]-5)-(width/10) < ym[i]) && ((ym[j]+(width/5)+(width/10)) > ym[i]))) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
