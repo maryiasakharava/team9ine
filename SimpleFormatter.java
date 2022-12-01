@@ -1,10 +1,15 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -21,16 +26,12 @@ public class SimpleFormatter implements MancalaFormatter {
 				   mainboard, board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
 	private JLabel headField, left, right, background;
 	private JLabel[] letter1, letter2;
-	private Icon pit;
 	private Icon theBoard;
-	
-	//private DisplayBoard displayboard;
 
 	/**
 	 * SimpleFormatter constructor
 	 */
 	public SimpleFormatter() {
-		//this.displayboard = displayboard;
 		mainboard = new JPanel();
 		pitPanel1 = new JPanel();
 		pitPanel2 = new JPanel();
@@ -139,9 +140,7 @@ public class SimpleFormatter implements MancalaFormatter {
 		}
 		
 		for (int i = 0; i < displayboard.getPits1().length; i++) {
-//			int marble = Integer.parseInt(displayboard.getNumber1()[i+1].getText());
 			displayboard.getPits1()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i)));
-//			marble = Integer.parseInt(displayboard.getNumber2()[i+1].getText());
 			displayboard.getPits2()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i+6)));
 			
 			this.setButton(displayboard.getPits1()[i], Color.white, Color.black, false, false, 0);
