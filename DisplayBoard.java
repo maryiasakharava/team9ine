@@ -1,10 +1,15 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -24,11 +29,8 @@ public class DisplayBoard extends JPanel{
 	private JButton[] pits1, pits2;
 	private JButton m1, m2;
 	private JLabel background;
-	private int undoTime;
 	private static MancalaModel mancalaModel;
 	private MancalaFormatter formatter;
-//	private PitModel[] innerPits;
-//    private PitModel[] sidePits;
     private ArrayList<Marble>[] marble;
     private String state;
     private TheSelectionMenu selectionMenu;
@@ -62,8 +64,7 @@ public class DisplayBoard extends JPanel{
 			SwingUtilities.getWindowAncestor(this).dispose();
 			selectionMenu.displayMainMenu();
 		});
-		undoTime = 3;
-		undo = new JButton("Undo: " + undoTime);
+		undo = new JButton("Undo: 3");
 		number1 = new JLabel[8];
 		number2 = new JLabel[8];
 		for (int i = 1; i < number1.length; i++) {
@@ -105,7 +106,6 @@ public class DisplayBoard extends JPanel{
 				this.undoMarble();
 			}			
 			paintComponent();
-			System.out.println(mancalaModel.getCheck());
 			if(mancalaModel.getCheck() == true) {
 				String response = mancalaModel.winner();
 				JOptionPane optionPane = new JOptionPane();
@@ -143,11 +143,9 @@ public class DisplayBoard extends JPanel{
 		}
 		if(mancalaModel.getPlayer1Undo() < mancalaModel.getPlayer2Undo()) {
 			undo.setText("Undo: " + (mancalaModel.getPlayer1Undo()));
-			//if(mancalaModel.getPlayer1Undo()<0) {undo.setText("Undo: 0");}
 		}
 		else {
 			undo.setText("Undo: " + (mancalaModel.getPlayer2Undo()));
-			//if(mancalaModel.getPlayer2Undo()<0) {undo.setText("Undo: 0");}
 		}
 	}
 
@@ -205,9 +203,7 @@ public class DisplayBoard extends JPanel{
 			else {
 	        	marble[n].add(new Marble(50, 75));
 			}
-			System.out.println(m);
 		}
-		System.out.println();
 
 		for (Integer integer : clear) {
 			int m;
@@ -223,8 +219,6 @@ public class DisplayBoard extends JPanel{
 		ArrayList<Integer> change = mancalaModel.getChange();
 		ArrayList<Integer> temp = mancalaModel.getClear();
 		ArrayList<Integer> clear = new ArrayList<>();
-		System.out.println(change.toString());
-		System.out.println(clear.toString());
 		for(Integer t : temp) {
 			if(!clear.contains(t)) {
 				clear.add(t);
@@ -241,11 +235,9 @@ public class DisplayBoard extends JPanel{
 			int n = clear.get(i);	
 			if(n<12) {
 				m = mancalaModel.getTempInnerPits(n);
-//				m = mancalaModel.getMarblesPit(n) - mancalaModel.getTempInnerPits(n);
 			}
 			else {
 				m = mancalaModel.getTempSidePits(n-12);
-//				m = mancalaModel.getPlayerMarbles(n-12) - mancalaModel.getTempSidePits(n-12);
 			}
 			if (n > 11) {
         		for(int j = 0; j < m; j++) {
@@ -258,10 +250,9 @@ public class DisplayBoard extends JPanel{
 	        	}
 			}
 		}
-		System.out.println(clear.toString());
+
 		for (int n : change) {
 			int m = marble[n].size() - 1;
-			System.out.println(m);
 			if (!marble[n].isEmpty()) {
 				marble[n].remove(m);
 			}
@@ -423,25 +414,6 @@ public class DisplayBoard extends JPanel{
 	}
 
 	/**
-	 * Gets undo time.
-	 *
-	 * @return the undo time
-	 */
-	public int getUndoTime() {
-		return undoTime;
-	}
-
-	/**
-	 * Sets undo time.
-	 *
-	 * @param undoTime the undo time
-	 */
-	public void setUndoTime(int undoTime) {
-		this.undoTime = undoTime;
-	}
-
-
-	/**
 	 * Gets mancala model.
 	 *
 	 * @return the mancala model
@@ -471,9 +443,7 @@ public class DisplayBoard extends JPanel{
 		    final JButton b = new JButton(text);
 		    ActionListener actionListener = new ActionListener() {
 		      public void actionPerformed(ActionEvent actionEvent) {
-		        // Return current text label, instead of argument to method
 		        optionPane.setValue(b.getText());
-//		        System.out.println(b.getText());
 		      }
 		    };
 
