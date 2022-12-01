@@ -1,39 +1,20 @@
 /**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
+/**
  * The type Pit model.
  */
 public class PitModel implements Cloneable{
 	private int marbles;
-
-	private MancalaModel model;
-	private int ID;
-
-	/**
-	 * PitModel Constructor
-	 *
-	 * @param marbles the marbles
-	 * @param id      the id
-	 * @param model   the MancalaModel
-	 */
-	public PitModel(int marbles, int id, MancalaModel model){
-		this.marbles = marbles;
-		this.model = model;
-		this.ID = id;
-	}
 
 	/**
 	 * PitModel Constructor x2 no args
 	 */
 	public PitModel(){
 
-	}
-
-	/**
-	 * Get id int
-	 *
-	 * @return the int
-	 */
-	public int getID(){
-		return this.ID;
 	}
 
 	/**
