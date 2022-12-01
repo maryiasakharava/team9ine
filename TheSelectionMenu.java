@@ -1,3 +1,9 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +18,6 @@ public class TheSelectionMenu extends JPanel {
     private int buttonWidth = 100;
     private int buttonHeight = 50;
     private MenuFormatter menuFormatter;
-//    private MancalaModel mancalaModel = new MancalaModel();
     private DisplayBoard displayboard;
 
 	private MancalaFormatter formatter = new SimpleFormatter();
@@ -28,7 +33,6 @@ public class TheSelectionMenu extends JPanel {
         exitButton = new JButton("Exit");
         themeOneButton = new JButton("Simple Theme");
         themeTwoButton = new JButton("Realistic Theme");
-//        themeThreeButton = new JButton("XXX3 Theme");
     }
 
     /**
@@ -102,9 +106,6 @@ public class TheSelectionMenu extends JPanel {
      */
     public void displayMainMenu(){
         JFrame menuFrame = new JFrame("CS151 Mancala Project Team 9ine");
-//        TheSelectionMenu theSelectionMenu = new TheSelectionMenu();
-//        MenuFormatter menuFormatter = new MenuFormatter(theSelectionMenu);
-//        theSelectionMenu.setFormatter(menuFormatter);
 
         menuFrame.setResizable(false);
         menuFrame.add(this);
