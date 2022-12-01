@@ -1,3 +1,9 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -99,11 +105,9 @@ public class MenuFormatter {
         	selectionMenu.setStyleFormatter(new RealisticFormatter());
         	}
         );
- //       this.setButton(selectionMenu.getThemeThreeButton(), Color.WHITE, Color.BLACK, 0, e -> selectionMenu.exitButtonApplication());
 
         themeButtonPanel.add(selectionMenu.getThemeOneButton());
         themeButtonPanel.add(selectionMenu.getThemeTwoButton());
- //       themeButtonPanel.add(selectionMenu.getThemeThreeButton());
 
         return themeButtonPanel;
     }
