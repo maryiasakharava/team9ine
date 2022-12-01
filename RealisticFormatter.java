@@ -1,3 +1,9 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -5,7 +11,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -23,16 +28,13 @@ public class RealisticFormatter implements MancalaFormatter{
 	   mainboard, board, pitPanel1, pitPanel2, pitPanel3, pitPanel4;
 	private JLabel headField, left, right, background;
 	private JLabel[] letter1, letter2;
-	private Icon pit;
 	private Icon theBoard;
 	private String marbleName = "stone2.png";
-	//private DisplayBoard displayboard;
 
 	/**
 	 * Realistic formatter constructor
 	 */
 	public RealisticFormatter() {
-		//this.displayboard = displayboard;
 		mainboard = new JPanel();
 		pitPanel1 = new JPanel();
 		pitPanel2 = new JPanel();
@@ -58,8 +60,7 @@ public class RealisticFormatter implements MancalaFormatter{
 	/**
 	 * set layout for displayBoard
 	 */
-	public void setLayout(DisplayBoard displayboard) {
-		
+	public void setLayout(DisplayBoard displayboard) {		
 		ImageIcon img1 = new ImageIcon(this.getClass().getResource("bg.jpg"));
 		img1.setImage(img1.getImage().getScaledInstance(630, 345, Image.SCALE_DEFAULT));
 		displayboard.setLayout(new FlowLayout());
@@ -145,12 +146,7 @@ public class RealisticFormatter implements MancalaFormatter{
 			letter2[i] = new JLabel("A" + j, SwingConstants.CENTER);
 		}
 		
-		for (int i = 0; i < displayboard.getPits1().length; i++) {
-//			int marble = Integer.parseInt(displayboard.getNumber1()[i+1].getText());
-//			displayboard.getPits1()[i].setIcon(new Pit(50, 75, marble));
-//			marble = Integer.parseInt(displayboard.getNumber2()[i+1].getText());
-//			displayboard.getPits2()[i].setIcon(new Pit(50, 75, marble));
-			
+		for (int i = 0; i < displayboard.getPits1().length; i++) {			
 			displayboard.getPits1()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i), marbleName));
 			displayboard.getPits2()[i].setIcon(new Pit(50, 75, displayboard.getMarble(i+6), marbleName));
 			
@@ -191,11 +187,6 @@ public class RealisticFormatter implements MancalaFormatter{
 		
 		board.setBounds(0, 0, 405, 220);
 		board.setLocation(75,20);
-		
-//		int marble = Integer.parseInt(displayboard.getNumber1()[7].getText());
-//		displayboard.getM1Button().setIcon(new Pit(50, 210, marble));
-//		marble = Integer.parseInt(displayboard.getNumber2()[7].getText());
-//		displayboard.getM2Button().setIcon(new Pit(50, 210, marble));
 		
 		displayboard.getM1Button().setIcon(new Pit(50, 210, displayboard.getMarble(12), marbleName));
 		displayboard.getM2Button().setIcon(new Pit(50, 210, displayboard.getMarble(13), marbleName));
@@ -272,14 +263,4 @@ public class RealisticFormatter implements MancalaFormatter{
 		b.setFocusPainted(false);
 	}
 
-//	public static String transformStringToHtml(String strToTransform) {
-//	    String ans = "<html>";
-//	    String br = "<br>";
-//	    String[] lettersArr = strToTransform.split("");
-//	    for (String letter : lettersArr) {
-//	        ans += letter + br;
-//	    }
-//	    ans += "</html>";
-//	    return ans;
-//	}
 }
