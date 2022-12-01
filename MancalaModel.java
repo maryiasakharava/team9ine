@@ -1,3 +1,9 @@
+/**
+ * CS151 Fall 2022 Team Project - 9ine
+ * @Tam Ly, Jose Betancourt Jr. Huizar, Maryia Sakharava
+ * @version 1.0 12/01/2022
+ */
+
 import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,10 +18,8 @@ public class MancalaModel {
 	private PitModel[] tempSidePits;
     private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static int currentPlayer;
-//    private int undoTheMove;
     private boolean gameOver;
     private boolean redoTurn;
-    private String rowPickedLast;
     private static boolean lastStep;
     private int last;
     private static int player1Undo;
@@ -37,13 +41,11 @@ public class MancalaModel {
         tempSidePits = new PitModel[2];
         change = new ArrayList<>();
         clear = new ArrayList<>();
-//        undoTheMove = 3;
         last = -1;
         player1Undo = 3;
         player2Undo = 3;
         gameOver = false;
         lastStep = false;
-        rowPickedLast = "top";
         this.setInit(n);
     }
 
@@ -102,12 +104,10 @@ public class MancalaModel {
     		if((innerPits[last].getMarbles() == 1) && (innerPits[11 - last].getMarbles() != 0)) {
     			int p = innerPits[11 - last].getMarbles() + innerPits[last].getMarbles();
     			sidePits[0].addMarbles(p);
- //   			change.add(11 - last);
     			int j = change.size()-1;
 				change.remove(j);
     			clear.add(last);
     			clear.add(11 - last);
- //   			change.add(12);
     			for (int i = 1; i <= p; i++) {
             		change.add(12);
             	}
@@ -120,12 +120,10 @@ public class MancalaModel {
     		if((innerPits[last].getMarbles() == 1) && innerPits[11 - last].getMarbles() != 0) {
     			int p = innerPits[11 - last].getMarbles() + innerPits[last].getMarbles();
     			sidePits[1].addMarbles(p);
-//    			change.add(11 - last);
     			int j = change.size()-1;
 				change.remove(j);
     			clear.add(last);
     			clear.add(11 - last);
-//    			change.add(13);
     			for (int i = 1; i <= p; i++) {
             		change.add(13);
             	}
@@ -198,18 +196,14 @@ public class MancalaModel {
             		innerPits[(i+c1)%14-1].setMarbles(m);
             		change.add((i+c1)%14-1);
             		if (i == getMarblesPit(n)) {
-//            			int j = change.size()-1;
-//        				change.remove(j);
         				last = (i+c1)%14-1;
         				int p = extraPoint(c);
         			}
         		}
         	}
         	innerPits[n].setMarbles(0);
-//        	change.add(n);
         	clear.add(n);
-        	this.check = this.checkWinner();
-        	if(this.check == true) {System.out.println(winner());}      	
+        	this.check = this.checkWinner();     	
         	for (ChangeListener l : listeners) {l.stateChanged(new ChangeEvent(this));}
         	
     	}
@@ -246,7 +240,6 @@ public class MancalaModel {
         	for (int i = 1; i <= m; i++) {
         		change.add(13);
         	}
-        	//change.add(13);
         	gameOver = true;
         	setMarbles(0);
         	return gameOver;
@@ -266,7 +259,6 @@ public class MancalaModel {
         	for (int i = 1; i <= m; i++) {
         		change.add(12);
         	}
-        	//change.add(12);
         	gameOver = true;
         	setMarbles(0);
         	return gameOver;
@@ -403,13 +395,6 @@ public class MancalaModel {
     }
 
 	/**
-	 * Gets last move.
-	 *
-	 * @return the last move
-	 */
-	public String getLastMove() {return this.rowPickedLast;}
-
-	/**
 	 * Save undo.
 	 */
 	public void saveUndo(){
@@ -418,18 +403,14 @@ public class MancalaModel {
 			tempInnerPits[i] = p;
 			try {
 				tempInnerPits[i] = ((PitModel) innerPits[i].clone());
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
+			} catch (CloneNotSupportedException e) {}
 		}
 		for (int i = 0; i < 2; i++) {
 			PitModel p = new PitModel();
 			tempSidePits[i] = p;
 			try {
 				tempSidePits[i] = ((PitModel) sidePits[i].clone());
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			}
+			} catch (CloneNotSupportedException e) {}
 		}
 	}
 
@@ -481,21 +462,16 @@ public class MancalaModel {
 	public void undoPrevMove(){
 		if ((this.redoTurn() == true) && (checkUndo() == true)){
 			if(this.redoTurn()==true) {this.redoTurn = false;}
-//			undoTheMove -=1;
 
 			for (int i = 0; i < 12; i++) {
 				try {
 					innerPits[i] = ((PitModel) tempInnerPits[i].clone());
-				} catch (CloneNotSupportedException e) {
-					//e.printStackTrace();
-				}
+				} catch (CloneNotSupportedException e) {}
 			}
 			for (int i = 0; i < 2; i++) {
 				try {
 					sidePits[i] = ((PitModel) tempSidePits[i].clone());
-				} catch (CloneNotSupportedException e) {
-					//e.printStackTrace();
-				}
+				} catch (CloneNotSupportedException e) {}
 			}
 			if(lastStep == false) {
 				if(currentPlayer==1) {currentPlayer+=1;}
@@ -504,7 +480,6 @@ public class MancalaModel {
 			
 			lastStep = false;
 			this.check = this.checkWinner();
-			System.out.println(this.check);
 			for (ChangeListener l: this.listeners){
 				l.stateChanged(new ChangeEvent(this));
 			}
